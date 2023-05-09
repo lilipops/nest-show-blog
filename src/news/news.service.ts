@@ -13,7 +13,7 @@ function getRandomInt(min: number, max: number): number {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
-function getRandomString(length) {
+function getRandomString(length : number) : string {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
@@ -24,8 +24,16 @@ function getRandomString(length) {
     }
     return result;
 }
+
 @Injectable()
 export class NewsService {
+  length: number;
+  findAll() {
+    return 'Hello World! -)) ';
+    //   return this.news;
+  }
+ 
+  
   private readonly news: News[] = [
     {
       id: 1,

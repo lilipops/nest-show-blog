@@ -2,7 +2,7 @@
 import { Controller, Get, Param, Post, Body, Delete, } from '@nestjs/common';
 import { News, NewsService } from './news.service';
 
-@Controller('news')
+@Controller('/news')
 export class NewsController {
   constructor(private readonly newsService: NewsService) {}
 
@@ -12,9 +12,22 @@ export class NewsController {
     return this.newsService.find(idInt);
   }
 
-  @Get()
-  findAll(): string {
+  @Get('/all')
+  findAll(){
     return this.newsService.findAll();
+    // if(this.newsService.length === 0) {
+    //     return {
+    //         message: 'No news available',
+    //         news: [],
+    //         status: 200,
+    //     }
+    // } else {
+    //     return {
+    //         massage: "all works",
+    //         news : this.newsService,
+    //         status: 200,
+    //     }
+    // }
   }
   
   @Post()
@@ -28,7 +41,5 @@ export class NewsController {
     const isRemoved = this.newsService.remove(idInt);
     return isRemoved ? 'Novost udalena' : 'Peredan neverniy ID';
   }
+
 }
-// const error = new Error("message")
-// error.code = "YOUR_STATUS_CODE"
-// throw error;
