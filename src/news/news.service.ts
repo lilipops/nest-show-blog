@@ -27,12 +27,13 @@ function getRandomString(length : number) : string {
 
 @Injectable()
 export class NewsService {
-  length: number;
-  findAll() {
-    return 'Hello World! -)) ';
-    //   return this.news;
-  }
- 
+    length: number;
+   
+    allNews(): News[]{
+        return this.news
+    }
+
+  
   
   private readonly news: News[] = [
     {
@@ -42,6 +43,8 @@ export class NewsService {
       author: 'Nikita',
       countView: 12,
     },
+ 
+    
   ];
 
   create(news: News): News {
@@ -60,7 +63,9 @@ export class NewsService {
     return finalNews;
   }
   find(id: News['id']): News | undefined {
+    
     return this.news.find((news: News) => news.id === id);
+
   }
   remove(id: News['id']): boolean {
     const indexRemoveNews = this.news.findIndex((news: News) => news.id === id);
@@ -70,4 +75,40 @@ export class NewsService {
     }
     return false;
   }
+//   updateNews(id: News['id'], news: News): News { 
+//     const countView = getRandomInt(0, 99999);
+//     const title = getRandomString(6);
+//     const description = getRandomString(25);
+//     const author = getRandomString(6);
+//     const newsToUpdate = this.news.find((news) => news.id === id);
+
+//     if(newsToUpdate) {
+//         newsToUpdate.title: title;
+//         newsToUpdate.description: description;
+//         newsToUpdate.author: author;
+//         newsToUpdate.countView: countView;
+
+//         return newsToUpdate
+//     }
+//   }
+updateNews(id: News['id'], news: News): News {
+    const countView = getRandomInt(0, 99999);
+    const title = getRandomString(6);
+    const description = getRandomString(25);
+    const author = getRandomString(6);
+  
+    const newsToUpdate = this.news.find((item) => item.id === id);
+  
+    if (newsToUpdate) {
+      newsToUpdate.title = title;
+      newsToUpdate.description = description;
+      newsToUpdate.author = author;
+      newsToUpdate.countView = countView;
+  
+      return newsToUpdate;
+    }
+  
+    return null;
+  }
+  
 }
