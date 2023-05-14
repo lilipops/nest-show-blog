@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
-import { News, NewsService } from './news.service';
+import { News, NewsService, NewsEdit } from './news.service';
 
 @Controller('/news')
 export class NewsController {
@@ -23,29 +23,18 @@ export class NewsController {
     }
   }
 
+  // second method to get all news
+
+  // @Get('/all')
+  // getAll(): News[] {
+  //   return this.newsService.getAll() 
+  // }
+
   @Get('/:id')
   get(@Param('id') id: string): News {
     const idInt = parseInt(id);
     return this.newsService.find(idInt);
   }
-
-//   @Get('/all')
-//   findAll(): string{
-//     return this.newsService.findAll();
-//     // if(this.newsService.length === 0) {
-//     //     return {
-//     //         message: 'No news available',
-//     //         news: [],
-//     //         status: 200,
-//     //     }
-//     // } else {
-//     //     return {
-//     //         massage: "all works",
-//     //         news : this.newsService,
-//     //         status: 200,
-//     //     }
-//     // }
-//   }
   
   @Post()
   create(@Body() news: News): string {
@@ -59,12 +48,19 @@ export class NewsController {
     return isRemoved ? 'Novost udalena' : 'Peredan neverniy ID';
   }
 
-  @Put('/:id')
-updateNews(@Param('id') id: string, @Body() news: News) {
-  const updatedNews = this.newsService.updateNews(+id, news);
-  return updatedNews ? 'News were updated successfully' : 'Could not update';
-}
+//   @Put('/:id')
+// updateNews(@Param('id') id: string, @Body() news: News) {
+//   const updatedNews = this.newsService.updateNews(+id, news);
+//   return updatedNews ? 'News were updated successfully' : 'Could not update';
+// }
 
+// Second version of updating News
+
+@Put('/:id')
+edit(@Param('id') id: string, @Body() news: NewsEdit): News {
+  const idInt = parseInt(id);
+  return this.newsService.edit(idInt,news);
+}
   
 
 
