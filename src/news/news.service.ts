@@ -8,6 +8,7 @@ export interface News {
   description: string;
   author: string;
   countView?: number;
+  cover?: string;
   comments?: Comment[];
 }
 export interface NewsEdit {
@@ -15,8 +16,10 @@ export interface NewsEdit {
   description?: string;
   author?: string;
   countView?: number;
+  cover?: string;
+
 }
-function getRandomInt(min: number, max: number): number {
+export function getRandomInt(min = 1, max = 9999): number {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
@@ -52,6 +55,7 @@ export class NewsService {
       description: 'Yesss!! Our first news',
       author: 'Nikita',
       countView: 12,
+      cover: 'https://static.scientificamerican.com/sciam/cache/file/32665E6F-8D90-4567-9769D59E11DB7F26_source.jpg'
     },
  
     

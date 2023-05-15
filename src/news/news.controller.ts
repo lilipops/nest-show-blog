@@ -1,12 +1,16 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
 import { News, NewsService, NewsEdit } from './news.service';
+import { CommentsService } from './comments/comments.service';
+import { renderNewsAll } from '../views/news/news-all';
+import { renderTemplate } from '../views/template';
+
 
 @Controller('/news')
 export class NewsController {
-  constructor(private readonly newsService: NewsService) {}
+  constructor(private readonly newsService: NewsService, private readonly commentsService: CommentsService) {}
   
-  @Get('/all')
+  @Get('/api/all')
   allNews() {
     if(this.newsService.allNews().length === 0) {
         return {
@@ -22,6 +26,13 @@ export class NewsController {
         }
     }
   }
+   
+  @Get('/all')
+  getAllView() {
+    const news= this.newsService.allNews();
+    const content = renderNewsAll(news)
+    return renderTemplate(content, {title: "All News", description: "The most cool news available"});
+  }
 
   // second method to get all news
 
@@ -30,18 +41,23 @@ export class NewsController {
   //   return this.newsService.getAll() 
   // }
 
-  @Get('/:id')
+  @Get('/api/:id')
   get(@Param('id') id: string): News {
     const idInt = parseInt(id);
-    return this.newsService.find(idInt);
+    const news = this.newsService.find(idInt);
+    const comments = this.commentsService.find(idInt)
+    return {
+      ...news,
+      comments,
+    }
   }
   
-  @Post()
+  @Post('/api')
   create(@Body() news: News): string {
     const isCreated = this.newsService.create(news);
     return isCreated ? 'Vse dobavleno STATUS CODE: 200' : 'Proizoshla oshibka STATUS CODE: 500';
   }
-  @Delete('/:id')
+  @Delete('/api/:id')
   remove(@Param('id') id: string): string {
     const idInt = parseInt(id);
     const isRemoved = this.newsService.remove(idInt);
@@ -56,7 +72,7 @@ export class NewsController {
 
 // Second version of updating News
 
-@Put('/:id')
+@Put('/api/:id')
 edit(@Param('id') id: string, @Body() news: NewsEdit): News {
   const idInt = parseInt(id);
   return this.newsService.edit(idInt,news);
