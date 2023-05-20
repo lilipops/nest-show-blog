@@ -40,20 +40,38 @@ export class CommentsService {
         return this.comments[idNews].splice(indexComment, 1);
     }
     edit(idNews: number, idComment: number, comment: Comment): Comment[] | null {
-        const indexEditableNews = this.comments[idNews].findIndex((c) => c.id === idComment)
-        console.log(indexEditableNews)
+        const indexEditableComment = comments.findIndex((c) => c.id === idComment);
         if (indexEditableNews !== -1) {
-            console.log(this.comments[idNews] + ' //11')
             const updatedComment = this.comments[indexEditableNews] = {
                 ...this.comments[indexEditableNews],
                 ...comment,
                id: idComment,
             }
-            console.log('hola' + idComment)
-            console.log(comment)
-            console.log(updatedComment)
+    
             return updatedComment
         }
         return null
     }
+    // edit(idNews: number, idComment: number, comment: Comment): Comment | null {
+    //     const comments = this.comments[idNews];
+    //     if (!comments) {
+    //         return null;
+    //     }
+      
+    //     const indexEditableComment = comments.findIndex((c) => c.id === idComment);
+    //     if (indexEditableComment === -1) {
+    //         return null;
+    //     }
+      
+    //     const updatedComment = {
+    //         ...comments[indexEditableComment],
+    //         ...comment,
+    //         id: idComment,
+    //     };
+      
+    //     comments[indexEditableComment] = updatedComment;
+      
+    //     return updatedComment;
+    // }
+    
 }
