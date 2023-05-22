@@ -100,24 +100,4 @@ export class NewsService {
     }
     return undefined
   }
-// updateNews(id: News['id'], news: News): News {
-//     const countView = getRandomInt(0, 99999);
-//     const title = getRandomString(6);
-//     const description = getRandomString(25);
-//     const author = getRandomString(6);
-  
-//     const newsToUpdate = this.news.find((item) => item.id === id);
-  
-//     if (newsToUpdate) {
-//       newsToUpdate.title = title;
-//       newsToUpdate.description = description;
-//       newsToUpdate.author = author;
-//       newsToUpdate.countView = countView;
-  
-//       return newsToUpdate;
-//     }
-  
-//     return null;
-//   }
-  
 }

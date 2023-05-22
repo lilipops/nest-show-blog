@@ -4,6 +4,7 @@ import { News, NewsService, NewsEdit } from './news.service';
 import { CommentsService } from './comments/comments.service';
 import { renderNewsAll } from '../views/news/news-all';
 import { renderTemplate } from '../views/template';
+import { renderNewsTotal } from '../views/news/news-total';
 
 
 @Controller('/news')
@@ -34,12 +35,15 @@ export class NewsController {
     return renderTemplate(content, {title: "All News", description: "The most cool news available"});
   }
 
-  // second method to get all news
+  @Get('/:id/details')
+  getTotalView(@Param('id') id: string): string {
+    const idInt = parseInt(id);
+    const news = this.newsService.find(idInt);
+    const comments = this.commentsService.find(idInt)
+    const content = renderNewsTotal(news, comments)
+    return renderTemplate(content, { title: "Vsem privet", description: "Vsem poka" });
+  }
 
-  // @Get('/all')
-  // getAll(): News[] {
-  //   return this.newsService.getAll() 
-  // }
 
   @Get('/api/:id')
   get(@Param('id') id: string): News {

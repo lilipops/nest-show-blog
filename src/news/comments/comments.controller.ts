@@ -18,7 +18,7 @@ export class CommentsController {
     get(@Param('idNews') idNews: string) {
         const idNewsInt = parseInt(idNews)
         const comments =  this.commentsService.find(idNewsInt)
-        console.log(comments)
+        return comments
     }
     @Delete('/api/details/:idNews/:idComment') 
     remove(
