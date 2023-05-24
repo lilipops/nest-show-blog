@@ -35,7 +35,7 @@ export function renderNewsTotal(news: News, comments: Comment[]) {
 }
 
 
-
+// changed also this 
 // 18  rem class card width  
 
 function renderCommentsBlock(comment: Comment) {
