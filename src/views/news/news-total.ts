@@ -34,7 +34,7 @@ export function renderNewsTotal(news: News, comments: Comment[]) {
     </div>`;
 }
 
-
+// ggs
 // changed also this 
 // 18  rem class card width  
 
