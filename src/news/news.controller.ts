@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Put, Res } from '@nestjs/common';
 import { News, NewsService, NewsEdit } from './news.service';
 import { CommentsService } from './comments/comments.service';
 import { renderNewsAll } from '../views/news/news-all';
 import { renderTemplate } from '../views/template';
-import { renderNewsTotal } from '../views/news/news-total';
+import { renderNewsDetail } from '../views/news/news-detail';
 
 
 @Controller('/news')
@@ -34,27 +34,37 @@ export class NewsController {
     const content = renderNewsAll(news)
     return renderTemplate(content, {title: "All News", description: "The most cool news available"});
   }
-
-  @Get('/:id/details')
-  getTotalView(@Param('id') id: string): string {
-    const idInt = parseInt(id);
-    const news = this.newsService.find(idInt);
-    const comments = this.commentsService.find(idInt)
-    const content = renderNewsTotal(news, comments)
-    return renderTemplate(content, { title: "Vsem privet", description: "Vsem poka" });
+  @Get('/detail/:id')
+  getDetailView(@Param('id') id: string) {
+    const inInt = parseInt(id)
+    const news= this.newsService.find(inInt);
+    const comment = this.commentsService.find(inInt);
+  
+    const content = renderNewsDetail(news, comment)
+    return renderTemplate(content, {title: news.title, description: news.description});
   }
 
 
-  @Get('/api/:id')
-  get(@Param('id') id: string): News {
-    const idInt = parseInt(id);
-    const news = this.newsService.find(idInt);
-    const comments = this.commentsService.find(idInt)
-    return {
-      ...news,
-      comments,
-    }
-  }
+  // @Get('/:id/details')
+  // getTotalView(@Param('id') id: string): string {
+  //   const idInt = parseInt(id);
+  //   const news = this.newsService.find(idInt);
+  //   const comments = this.commentsService.find(idInt)
+  //   const content = renderNewsTotal(news, comments)
+  //   return renderTemplate(content, { title: "Vsem privet", description: "Vsem poka" });
+  // }
+
+
+  // @Get('/api/:id')
+  // get(@Param('id') id: string): News {
+  //   const idInt = parseInt(id);
+  //   const news = this.newsService.find(idInt);
+  //   const comments = this.commentsService.find(idInt)
+  //   return {
+  //     ...news,
+  //     comments,
+  //   }
+  // }
   
   @Post('/api')
   create(@Body() news: News): string {
