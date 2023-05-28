@@ -12,7 +12,7 @@ export function renderNewsDetail(news: News, comment: Comment[]): string {
     </div>
     `;
 } 
-
+//hola
 
 function renderNewsComments(comments: Comment[]): string {
     let html = '';
