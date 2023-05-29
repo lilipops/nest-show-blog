@@ -12,7 +12,7 @@ export function renderNewsDetail(news: News, comment: Comment[]): string {
     </div>
     `;
 } 
-//hola
+//hola yayyyy i haven't forgot to update the comment count yayyyyy !!!!
 
 function renderNewsComments(comments: Comment[]): string {
     let html = '';
