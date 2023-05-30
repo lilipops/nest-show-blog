@@ -9,7 +9,7 @@ export function renderNewsDetail(news: News, comment: Comment[]): string {
     <div>${news.description}</div>
     <div class="text-muted">автор: ${news.author}</div>
     ${comment ? renderNewsComments(comment) : 'No comments'}
-    </div>
+    </div>//n
     `;
 } 
 //hola yayyyy i haven't forgot to update the comment count yayyyyy !!!!
