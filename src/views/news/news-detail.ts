@@ -4,7 +4,7 @@ import { Comment } from '../../news/comments/comments.service';
 export function renderNewsDetail(news: News, comment: Comment[]): string {
     return `
     <div class="container">
-    <img style="width:500px;" src="${news.cover}" alt="" />
+    <img style="width:500px;" src="${news.cover}" alt="" /> 
     <h1>${news.title}</h1>
     <div>${news.description}</div>
     <div class="text-muted">автор: ${news.author}</div>
