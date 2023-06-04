@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Post, Body, Delete, Put, Res } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Put, } from '@nestjs/common';
 import { News, NewsService, NewsEdit } from './news.service';
 import { CommentsService } from './comments/comments.service';
 import { renderNewsAll } from '../views/news/news-all';
 import { renderTemplate } from '../views/template';
 import { renderNewsDetail } from '../views/news/news-detail';
-
+import { CreateNewsDto } from './dtos/create-news-dto';
 
 @Controller('/news')
 export class NewsController {
@@ -67,7 +67,7 @@ export class NewsController {
   // }
   
   @Post('/api')
-  create(@Body() news: News): string {
+  create(@Body() news: CreateNewsDto): string {
     const isCreated = this.newsService.create(news);
     return isCreated ? 'Vse dobavleno STATUS CODE: 200' : 'Proizoshla oshibka STATUS CODE: 500';
   }
