@@ -1,19 +1,19 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsNumber } from 'class-validator';
+import {  ValidateIf } from 'class-validator';
 
-export class CreateNewsDto {
-    @IsString()
+export class EditNewsDto {
+    @ValidateIf((o) => o !== undefined)
     title: string;
 
-    @IsString()
+    @ValidateIf((o) => o !== undefined)
     description: string;
 
-    @IsString()
+    @ValidateIf((o) => o !== undefined)
     author: string;
 
-    @IsNumber()
+    @ValidateIf((o) => o !== undefined)
     countView?: number;
 
-    @IsString()
+    @ValidateIf((o) => o !== undefined)
     cover?: string;
 }
