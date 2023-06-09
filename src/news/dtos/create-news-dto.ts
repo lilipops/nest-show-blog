@@ -18,6 +18,5 @@ export class CreateNewsDto {
     countView?: number;
 
     @ValidateIf((o) => o !== undefined)
-    @IsString()
     cover?: string;
 }

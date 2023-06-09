@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Post, Body, Delete, Put, UseInterceptors, } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Put, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { News, NewsService } from './news.service';
 import { CommentsService } from './comments/comments.service';
 import { renderNewsAll } from '../views/news/news-all';
@@ -9,6 +9,10 @@ import { CreateNewsDto } from './dtos/create-news-dto';
 import { EditNewsDto } from './dtos/edit-news-dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer'; 
+import { HelperFileLoader } from 'src/utils/HelperFIleLoader';
+
+const PATH_NEWS = '/news-static'
+HelperFileLoader.path = PATH_NEWS
 
 @Controller('/news')
 export class NewsController {
@@ -77,10 +81,15 @@ export class NewsController {
         filename: HelperFileLoader.customFileName,
       }),
     }),
-  )
-  create(@Body() news: CreateNewsDto): string {
-    const isCreated = this.newsService.create(news);
-    return isCreated ? 'Vse dobavleno STATUS CODE: 200' : 'Proizoshla oshibka STATUS CODE: 500';
+  ) 
+  create(
+    @Body() news: CreateNewsDto,
+    @UploadedFile() cover: Express.Multer.File
+    ): News {
+    if (cover?.filename) {
+      news.cover  = PATH_NEWS + cover.filename;
+    }
+    return this.newsService.create(news)
   }
   @Delete('/api/:id')
   remove(@Param('id') id: string): string {
