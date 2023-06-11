@@ -82,6 +82,7 @@ export class NewsController {
       }),
     }),
   ) 
+  //k
   create(
     @Body() news: CreateNewsDto,
     @UploadedFile() cover: Express.Multer.File
