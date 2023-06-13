@@ -17,6 +17,7 @@ export type CommentEdit = {
 export class CommentsService {
     private readonly comments = {
     };
+    //kkk
 
     create(idNews: number, comment: Comment) { 
         if (!this.comments[idNews]) {
